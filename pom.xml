@@ -21,7 +21,7 @@
     <repositories>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/cbomkit/cbomkit-lib</url>
+            <url>https://maven.pkg.github.com/chmodshubham/pqca-cbomkit-lib</url>
         </repository>
     </repositories>
 
@@ -29,7 +29,7 @@
         <dependency> <!-- Fixes cbomkit issue #138 -->
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>4.32.1</version> <!-- Use the latest stable version -->
+            <version>3.25.5</version> <!-- Use the latest stable version -->
         </dependency>
 
         <dependency>
@@ -112,6 +112,40 @@
                                     </includes>
                                 </resource>
                             </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.8.1</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.ibm</groupId>
+                                    <artifactId>sonar-cryptography-plugin</artifactId>
+                                    <version>2.0.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/java/scan</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.bouncycastle</groupId>
+                                    <artifactId>bcprov-jdk18on</artifactId>
+                                    <version>1.79</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/java/scan</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                 </executions>
