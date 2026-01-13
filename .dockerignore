@@ -1,0 +1,10 @@
+# Ignore everything by default
+**
+
+# Re-include directories/files needed for the build
+!Dockerfile
+!target/
+!target/CBOMkit-action.jar
+!target/java/
+!target/java/scan/
+!target/java/scan/**
