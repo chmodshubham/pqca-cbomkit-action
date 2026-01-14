@@ -9,7 +9,7 @@
     <version>2.0.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,10 +30,10 @@
     </repositories>
 
     <dependencies>
-        <dependency> <!-- Fixes cbomkit issue #138 -->
+        <dependency> <!-- Fixes cbomkit issue #138 and AbstractMessage$BuilderParent error -->
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.25.5</version> <!-- Use the latest stable version -->
+            <version>4.29.0</version> <!-- Use version compatible with sonar-python-plugin -->
         </dependency>
 
         <dependency>
