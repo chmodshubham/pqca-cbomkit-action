@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.pqca</groupId>
             <artifactId>cbomkit-lib</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
         </dependency>
     </dependencies>
 

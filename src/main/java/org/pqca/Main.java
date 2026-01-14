@@ -27,10 +27,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.pqca.indexing.cpp.CppIndexService;
 import org.pqca.indexing.java.JavaIndexService;
 import org.pqca.indexing.python.PythonIndexService;
 import org.pqca.scanning.CBOM;
 import org.pqca.scanning.ScanResultDTO;
+import org.pqca.scanning.cpp.CppScannerService;
 import org.pqca.scanning.java.JavaScannerService;
 import org.pqca.scanning.python.PythonScannerService;
 import org.slf4j.Logger;
@@ -124,6 +126,25 @@ public class Main {
             numberOfScannedFiles += pythonResultDTO.numberOfScannedFiles();
             numberOfScannedLines += pythonResultDTO.numberOfScannedLines();
             scanningTime += (pythonResultDTO.endTime() - pythonResultDTO.startTime());
+        }
+
+        // Scan cpp
+        if (languages.isEmpty() || languages.contains("cpp") || languages.contains("c++")) {
+            final CppIndexService cppIndexService = new CppIndexService(projectDirectory);
+            cppIndexService.setExcludePatterns(excludePatterns);
+            final CppScannerService cppScannerService = new CppScannerService(projectDirectory);
+
+            ScanResultDTO cppResultDTO =
+                    bomGenerator.generateBom(cppIndexService, cppScannerService);
+
+            if (consolidatedCBOM != null) {
+                consolidatedCBOM.merge(cppResultDTO.cbom());
+            } else {
+                consolidatedCBOM = cppResultDTO.cbom();
+            }
+            numberOfScannedFiles += cppResultDTO.numberOfScannedFiles();
+            numberOfScannedLines += cppResultDTO.numberOfScannedLines();
+            scanningTime += (cppResultDTO.endTime() - cppResultDTO.startTime());
         }
 
         LOGGER.info(
