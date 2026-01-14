@@ -9,13 +9,13 @@
     <version>2.0.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <cyclonedx-maven-plugin.version>2.9.1</cyclonedx-maven-plugin.version>
-        <google-java-format.version>1.25.2</google-java-format.version>
+        <google-java-format.version>1.28.0</google-java-format.version>
     </properties>
 
     <repositories>
@@ -30,7 +30,7 @@
     </repositories>
 
     <dependencies>
-        <dependency> <!-- Fixes cbomkit issue #138 and AbstractMessage$BuilderParent error -->
+        <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>4.29.0</version> <!-- Use version compatible with sonar-python-plugin -->
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.pqca</groupId>
             <artifactId>cbomkit-lib</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </dependency>
     </dependencies>
 
@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -94,32 +94,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-files-on-build</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>./</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>target</directory>
-                                    <filtering>false</filtering>
-                                    <includes>
-                                        <include>CBOMkit-action.jar</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -158,7 +133,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.44.5</version>
+                <version>3.0.0</version>
                 <configuration>
                     <java>
                         <includes>
@@ -191,7 +166,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */</content>  <!-- or <file>${project.basedir}/license-header</file> -->
+ * */</content>  <!-- or <file>${project.basedir}/license-header</file> -->
                         </licenseHeader>
                     </java>
                 </configuration>
